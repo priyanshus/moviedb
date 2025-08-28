@@ -1,0 +1,194 @@
+{
+  "_type": "export",
+  "version": "4",
+  "exportType": "api_v1",
+  "exportInfo": {
+    "name": "MovieDB API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "__export_date": "2025-08-28T10:00:00.000Z",
+  "__export_source": "insomnia.desktop.app",
+  "resources": [
+    {
+      "_id": "env_base",
+      "type": "environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "jwt_token": ""
+      },
+      "name": "Base Environment"
+    },
+    {
+      "_id": "req_auth_register",
+      "type": "request",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/auth/register",
+      "name": "Register User",
+      "description": "Register a new user in the system",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"user1\",\n  \"password\": \"password123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_auth_login",
+      "type": "request",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/auth/login",
+      "name": "Login",
+      "description": "Login and get JWT token",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"user1\",\n  \"password\": \"password123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_movies_list",
+      "type": "request",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/movies",
+      "name": "List Movies",
+      "description": "Get all movies with pagination",
+      "parameters": [
+        {
+          "name": "page",
+          "value": "0"
+        },
+        {
+          "name": "size",
+          "value": "10"
+        },
+        {
+          "name": "sort",
+          "value": "title,asc"
+        }
+      ],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_movies_get",
+      "type": "request",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/movies/1",
+      "name": "Get Movie by ID",
+      "description": "Get details of a specific movie",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_movies_create",
+      "type": "request",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/movies",
+      "name": "Create Movie",
+      "description": "Create a new movie (ADMIN only)",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Inception\",\n  \"releaseDate\": \"2010-07-16\",\n  \"genres\": [\"Sci-Fi\", \"Action\"],\n  \"synopsis\": \"A thief who enters the dreams of others to steal secrets\",\n  \"year\": 2010\n}"
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_reviews_list",
+      "type": "request",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/movies/1/reviews",
+      "name": "List Movie Reviews",
+      "description": "Get all reviews for a specific movie",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reviews_add",
+      "type": "request",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/movies/1/reviews",
+      "name": "Add Movie Review",
+      "description": "Add a review to a movie",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"rating\": 5,\n  \"comment\": \"Amazing movie! Must watch.\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_starring_list",
+      "type": "request",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/movies/1/starring",
+      "name": "List Movie Starring",
+      "description": "Get all starring actors for a movie",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_starring_add",
+      "type": "request",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/movies/1/starring",
+      "name": "Add Movie Starring",
+      "description": "Add an actor to a movie (ADMIN only)",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"actorName\": \"Leonardo DiCaprio\",\n  \"role\": \"Cobb\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.jwt_token }}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
+  ]
+}
