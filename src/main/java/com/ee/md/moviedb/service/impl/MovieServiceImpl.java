@@ -124,4 +124,28 @@ public class MovieServiceImpl implements MovieService {
         dto.setRole(starring.getRole());
         return dto;
     }
+
+    @Override
+    public MoviePerformanceDto getMoviePerformance(Long movieId) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found"));
+        
+        List<Review> reviews = reviewRepository.findByMovieId(movieId);
+        int reviewCount = reviews.size();
+        double averageRating = reviews.stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(0.0);
+
+        MovieClassification classification = MovieClassification.getClassification(averageRating, reviewCount);
+        
+        MoviePerformanceDto dto = new MoviePerformanceDto();
+        dto.setMovieId(movieId);
+        dto.setTitle(movie.getTitle());
+        dto.setAverageRating(averageRating);
+        dto.setReviewCount(reviewCount);
+        dto.setClassification(classification.getDisplayName());
+        
+        return dto;
+    }
 }

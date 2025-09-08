@@ -49,6 +49,16 @@ public class MovieController {
         return movieService.getStarringByMovieId(movieId);
     }
 
+    @GetMapping("/{movieId}/performance")
+    public ResponseEntity<MoviePerformanceDto> getMoviePerformance(@PathVariable Long movieId) {
+        try {
+            MoviePerformanceDto performance = movieService.getMoviePerformance(movieId);
+            return ResponseEntity.ok(performance);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/{movieId}/starring")
     public StarringDto addStarring(@PathVariable Long movieId, @RequestBody StarringDto starringDto) {
         return movieService.addStarringToMovie(movieId, starringDto);
