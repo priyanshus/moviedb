@@ -1,6 +1,8 @@
 package com.ee.md.moviedb.controller;
 
 import com.ee.md.moviedb.dto.MovieDto;
+import com.ee.md.moviedb.dto.ReviewDto;
+import com.ee.md.moviedb.dto.StarringDto;
 import com.ee.md.moviedb.service.MovieService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
